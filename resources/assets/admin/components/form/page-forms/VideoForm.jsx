@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import Label from '../Label.jsx';
 import FormikInput from '../input/FormikInput.jsx';
-import Button from '../../ui/button/Button.jsx';
 import { errorHandler } from '../../utils/toastHandler.js';
 import {
     useDeleteImageMutation,
@@ -16,8 +15,8 @@ import FileDropzone from '../../generics/FileDropzone.jsx';
 import { Loading } from '../../loadingBar/Loading.jsx';
 import PaginationInfo from '../../generics/PaginationInfo.jsx';
 import { CardGrid } from '../../ui/card/CardGrid.jsx';
-import { Link } from 'react-router-dom';
 import GroupButtons from '../../ui/button/GroupButtons.jsx';
+import Tabs from '../../ui/Tabs/Tabs.jsx';
 
 export default function VideoForm({
                                       current = null,
@@ -36,6 +35,13 @@ export default function VideoForm({
         useDeleteMutation: useDeleteImageMutation,
         initialLimit: 3,
     });
+
+    const [activeTab, setActiveTab] = useState('desktop');
+    const tabs = [
+        { id: 'desktop', label: 'Desktop' },
+        { id: 'tablet', label: 'Tablet' },
+        { id: 'mobile', label: 'Mobile' },
+    ];
 
     const [selectionStep, setSelectionStep] = useState('desktop');
     const [uploadFile, { isLoading: isLoadingUploadFile }] = useUploadMutation();
@@ -56,7 +62,7 @@ export default function VideoForm({
             const result = await uploadFile(formData).unwrap();
             setFileData(prev => ({
                 ...prev,
-                [deviceType]: result?.data || result?.preview, // Зберігаємо весь об'єкт
+                [deviceType]: result?.data || result?.preview,
             }));
             setRequired(prev => ({
                 ...prev,
@@ -74,10 +80,10 @@ export default function VideoForm({
         }));
     };
 
-    const handleSelectImage = (item, deviceType) => {
+    const handleSelectImage = (item) => {
         setFileData(prev => ({
             ...prev,
-            [deviceType]: item
+            [activeTab]: item
         }));
     };
 
@@ -98,22 +104,12 @@ export default function VideoForm({
                 })}
                 onSubmit={(values) => {
                     try {
-                        if (fileData.desktop && fileData.tablet && fileData.mobile) {
-                            handleSubmit({
-                                ...values,
-                                desktop_preview: fileData.desktop,
-                                tablet_preview: fileData.tablet,
-                                mobile_preview: fileData.mobile,
-                            });
-                        } else {
-                            setRequired({
-                                desktop: !fileData.desktop,
-                                tablet: !fileData.tablet,
-                                mobile: !fileData.mobile,
-                            });
-                            errorHandler('Будь ласка, завантажте всі зображення');
-                            setSubmitting(false);
-                        }
+                        handleSubmit({
+                            ...values,
+                            desktop_preview: fileData.desktop,
+                            tablet_preview: fileData.tablet,
+                            mobile_preview: fileData.mobile,
+                        });
                     } catch (error) {
                         console.error(error);
                         setSubmitting(false);
@@ -167,60 +163,74 @@ export default function VideoForm({
                             </div>
                         ) : (
                             <>
-                                <div className="space-y-6">
-                                    <div>
-                                        <Label className="text-xl">Desktop image</Label>
-                                        {!fileData.desktop ? (
-                                            <FileDropzone
-                                                accept={imageAccept}
-                                                handleSubmit={(formData) => handleFileUpload(formData, 'desktop')}
-                                                required={required.desktop}
-                                            />
-                                        ) : (
-                                            <FileList
-                                                data={[fileData.desktop]}
-                                                removeFileData={() => removeFileData('desktop')}
-                                            />
-                                        )}
-                                    </div>
+                                <Tabs
+                                    tabs={tabs}
+                                    activeTab={activeTab}
+                                    onTabChange={setActiveTab}
+                                >
+                                    {activeTab === 'desktop' && (
+                                        <div>
+                                            <div>
+                                                {!fileData.desktop ? (
+                                                    <FileDropzone
+                                                        accept={imageAccept}
+                                                        handleSubmit={(formData) => handleFileUpload(formData, 'desktop')}
+                                                        required={required.desktop}
+                                                    />
+                                                ) : (
+                                                    <FileList
+                                                        data={[fileData.desktop]}
+                                                        removeFileData={() => removeFileData('desktop')}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
 
-                                    <div>
-                                        <Label className="text-xl">Tablet image</Label>
-                                        {!fileData.tablet ? (
-                                            <FileDropzone
-                                                accept={imageAccept}
-                                                handleSubmit={(formData) => handleFileUpload(formData, 'tablet')}
-                                                required={required.tablet}
-                                            />
-                                        ) : (
-                                            <FileList
-                                                data={[fileData.tablet]}
-                                                removeFileData={() => removeFileData('tablet')}
-                                            />
-                                        )}
-                                    </div>
+                                    {activeTab === 'tablet' && (
+                                        <div>
+                                            <div>
+                                                {!fileData.tablet ? (
+                                                    <FileDropzone
+                                                        accept={imageAccept}
+                                                        handleSubmit={(formData) => handleFileUpload(formData, 'tablet')}
+                                                        required={required.tablet}
+                                                    />
+                                                ) : (
+                                                    <FileList
+                                                        data={[fileData.tablet]}
+                                                        removeFileData={() => removeFileData('tablet')}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
 
-                                    <div>
-                                        <Label className="text-xl">Mobile image</Label>
-                                        {!fileData.mobile ? (
-                                            <FileDropzone
-                                                accept={imageAccept}
-                                                handleSubmit={(formData) => handleFileUpload(formData, 'mobile')}
-                                                required={required.mobile}
-                                            />
-                                        ) : (
-                                            <FileList
-                                                data={[fileData.mobile]}
-                                                removeFileData={() => removeFileData('mobile')}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
+                                    {activeTab === 'mobile' && (
+                                        <div>
+                                            <div>
+                                                {!fileData.mobile ? (
+                                                    <FileDropzone
+                                                        accept={imageAccept}
+                                                        handleSubmit={(formData) => handleFileUpload(formData, 'mobile')}
+                                                        required={required.mobile}
+                                                    />
+                                                ) : (
+                                                    <FileList
+                                                        data={[fileData.mobile]}
+                                                        removeFileData={() => removeFileData('mobile')}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </Tabs>
+
 
                                 <div className="py-3">
                                     <GroupButtons
                                         backLinkPath={backLinkPath.current}
-                                        isSubmitting={isSubmitting || !fileData}
+                                        isSubmitting={isSubmitting}
                                     />
                                 </div>
 
@@ -229,7 +239,7 @@ export default function VideoForm({
                                     <CardGrid
                                         data={items}
                                         handleSelectImage={handleSelectImage}
-                                        currentStep={selectionStep}
+                                        activeDevice={activeTab}
                                         setFileData={setFileData}
                                         isFetchingMore={isFetchingMore}
                                         loadMore={loadMore}

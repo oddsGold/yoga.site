@@ -10,7 +10,7 @@ export function useCrudPageLogic({ useQuery, useDeleteMutation = null, initialLi
   const [itemToDelete, setItemToDelete] = useState(null);
 
   const [items, setItems] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   const [filters, setFilters] = useState({});
@@ -27,19 +27,22 @@ export function useCrudPageLogic({ useQuery, useDeleteMutation = null, initialLi
   const data = response?.data || [];
   const meta = response?.meta || {};
 
-  useEffect(() => {
-    if (page === 1) {
-      setItems(response?.data || []);
-    } else if (data?.length > 0) {
-      setItems((prev) => [...prev, ...data]);
-    }
+    useEffect(() => {
+        if (page === 1) {
+            setItems(response?.data || []);
+            setHasMore(!!(response?.data?.length && response?.data?.length >= limit));
+        } else if (data?.length > 0) {
+            setItems((prev) => [...prev, ...data]);
+        }
 
-    if (meta?.total && items.length + data.length >= meta.total) {
-      setHasMore(false);
-    }
+        if (meta?.total) {
+            setHasMore(items.length + data.length < meta.total);
+        } else {
+            setHasMore(data.length >= limit);
+        }
 
-    setIsFetchingMore(false);
-  }, [response]);
+        setIsFetchingMore(false);
+    }, [response]);
 
   const loadMore = () => {
     if (hasMore && !isLoading) {
