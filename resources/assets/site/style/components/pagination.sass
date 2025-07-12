@@ -1,0 +1,40 @@
+ul
+    &.pagination
+        justify-content: center
+        margin-bottom: 0
+        .pagination-item
+
+            .pagination-link
+                border-radius: 6px
+                background-color: #ffffff
+                border: 1px solid #E2E8F0
+                margin: 6px
+                height: 36px
+                width: 36px
+                display: block
+                text-align: center
+                line-height: 35px
+                color: #1F1F1F
+                font-size: 14px
+                font-weight: 600
+                padding-left: 2px
+                &:hover
+                    border: 1px solid #F9B233
+                &.arrow
+                    border: none
+
+            &.active
+                .pagination-link
+                    background-color: #F9B233
+                    border: 1px solid #F9B233
+                    color: #ffffff
+
+            &.disabled
+                .pagination-link
+                    &.arrow
+                        color: #B1B9C4
+                        cursor: default
+
+
+
+

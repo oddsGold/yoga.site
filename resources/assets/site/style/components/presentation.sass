@@ -1,0 +1,62 @@
+.get-presentation
+    .modal-dialog
+        .modal-content
+            padding: 0
+            border-radius: 0
+            .modal-body
+                padding: 68px 20px 146px 20px
+                position: relative
+                .btn-close
+                    position: absolute
+                    right: 20px
+                    top: 24px
+                .message
+                    color: #292929
+                    font-size: 24px
+                    line-height: 28px
+                    margin-bottom: 20px
+                .personal-data
+                    color: #000
+                    font-size: 10px
+                    font-weight: 400
+                    line-height: 14px
+                    margin-top: 32px
+                    text-align: center
+                    a
+                        color: #e9762a
+                .input-wrapper.required:before
+                    display: none
+                .input-wrapper
+                    font-family: $second-font
+                    .form-control
+                        color: $color-gray!important
+                        border: 1px solid #CCCCCC!important
+                    input
+                        border-radius: 0
+                        margin-bottom: 0!important
+                    .error
+                        margin-top: 2px
+                        font-size: 14px
+                        line-height: 20px
+                        color: #F04438
+                        position: unset
+                .input-wrapper.valid
+                    .form-control
+                        border: 1px solid #153513!important
+                .input-wrapper.error
+                    .form-control
+                        border: 1px solid #F68982!important
+            .modal-body--padded
+                padding: 20px
+            .description
+                p
+                    font-size: 24px
+                    line-height: 28px
+                    padding-bottom: 8px
+                    &:last-child
+                        font-size: 16px
+                        font-family: $second-font
+                        line-height: 24px
+                        padding-bottom: 0
+            .btn.btn-base
+                margin-top: 32px

@@ -1,0 +1,138 @@
+.modal
+    .modal-dialog
+        .modal-content
+            border-radius: 14px
+            padding: 15px 0 10px
+            position: relative
+            border: none
+            box-shadow: 0 0 15px 0 rgb(36, 36, 36, 29%)
+            overflow: auto
+            .modal-header,
+            .modal-body,
+            .modal-footer
+                border: none
+
+            .modal-header
+                padding-bottom: 0
+                .modal-title
+                    font-size: 24px
+                    font-weight: 700
+                    text-align: center
+                    line-height: 150%
+                .close
+                    position: absolute
+                    top: 14px
+                    right: 16px
+                    transform: scale(0.9)
+
+            .modal-body
+                padding-top: 32px
+                &.result
+                    padding-top: 174px
+                    padding-bottom: 223px
+                    .icon
+                        margin-bottom: 24px
+                        text-align: center
+                        img
+                            height: 64px
+                            width: 64px
+                    .modal-title
+                        margin-bottom: 12px
+                        font-size: 24px
+                        font-weight: 700
+                        text-align: center
+                        line-height: 150%
+                    .message
+                        color: #64748B
+                        font-size: 14px
+                        font-weight: 400
+                        line-height: 150%
+
+                .input-wrapper
+                    margin-bottom: 12px
+                    position: relative
+                    z-index: 5
+                    &.required
+                        &:before
+                            content: '*'
+                            position: absolute
+                            left: 12px
+                            color: red
+                            top: 9px
+                            font-size: 17px
+                            z-index: 15
+                        .form-control
+                            //&::placeholder
+                            //    padding-left: 12px
+                    &.error
+                        .form-control
+                            border: 1px solid #ff9797
+                    &.valid
+                        .form-control
+                            border: 1px solid #E2E8F0
+                            background-color: #ffffff
+                    .error
+                        //font-size: 12px
+                        //left: 5px
+                        //margin: 0
+                        //position: absolute
+                        //top: 93%
+                        //width: 100%
+                        //z-index: 20
+                        //color: #fd1d1d
+                    .form-control
+                        //background-color: #F0F5F9
+                        color: #64748B
+                        padding: 10px 12px
+                        display: block
+                        width: 100%
+                        font-size: 14px
+                        font-weight: 400
+                        line-height: 150%
+                        border: 1px solid #F0F5F9
+                        outline: none
+                        margin-bottom: 12px
+                        box-shadow: none
+                    textarea
+                        resize: none
+                        height: 100px !important
+                .button-wrapper
+                    margin-top: 32px
+                    margin-bottom: 16px
+                .copyright
+                    text-align: center
+                    color: #64748B
+                    font-size: 12px
+                    font-weight: 400
+                    line-height: 150%
+
+        //@include mobile
+        //    .modal-content
+        //        border-radius: 0
+        //        padding: 0
+        //        .modal-header
+        //            padding-bottom: 1rem
+        //            box-shadow: 0 0 13px 2px rgb(0, 0, 0, 15%)
+        //            justify-content: start !important
+        //            margin-bottom: 10px
+        //            .modal-title
+        //                text-align: left
+        //                font-size: 20px
+        //                padding-left: 10px
+        //            .close
+        //                top: 22px
+        //                padding: 8px 20px
+        //                border-radius: 24px
+        //                border: 1px solid #EAECF1
+        //                cursor: pointer
+        //        .modal-body
+        //            &.result
+        //                .modal-title
+        //                    font-size: 24px
+        //                    font-weight: 700
+        //                    text-align: center
+        //                    margin-top: 50%
+
+
+.modal-backdrop
+    background-color: #C1C6D6
