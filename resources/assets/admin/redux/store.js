@@ -9,7 +9,8 @@ import programReducer from './program/slice.js';
 import worthReducer from './worth/slice.js';
 import getReducer from './get/slice.js';
 import downloadReducer from './download/slice.js';
-import videoReducer from './video/slice.js';
+import authorReducer from './author/slice.js';
+import learningReducer from './learning/slice.js';
 import {
     persistStore,
     persistReducer,
@@ -42,7 +43,8 @@ export const store = configureStore({
         worth: worthReducer,
         get: getReducer,
         download: downloadReducer,
-        video: videoReducer,
+        author: authorReducer,
+        learning: learningReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

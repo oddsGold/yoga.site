@@ -2,9 +2,9 @@ import PageBreadcrumb from '../../components/common/PageBreadCrumb.jsx';
 import PageMeta from '../../components/common/PageMeta.jsx';
 import CrudPage from '../../components/shared/CrudPage.jsx';
 import ComponentCard from '../../components/common/ComponentCard.jsx';
-import { useDeleteVideoMutation, useVideoQuery } from '../../redux/video/videoApiSlice.js';
+import { useDeleteVideoMutation, useVideoQuery } from '../../redux/author/authorApiSlice.js';
 
-export default function VideoPage() {
+export default function AuthorPage() {
   const gridHeaderRow = [
     { name: 'id', label: '#', sortable: true },
     { name: 'title', label: 'Назва', sortable: true },
@@ -23,8 +23,8 @@ export default function VideoPage() {
         <ComponentCard title="Author">
           <CrudPage
             buttonTitle="Author"
-            createPath="/admin/videos/create"
-            editPath="/admin/videos"
+            createPath="/admin/author/create"
+            editPath="/admin/author"
             gridHeaderRow={gridHeaderRow}
             useQuery={useVideoQuery}
             useDeleteMutation={useDeleteVideoMutation}

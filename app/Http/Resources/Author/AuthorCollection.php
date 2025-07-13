@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Video;
+namespace App\Http\Resources\Author;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class VideoCollection extends ResourceCollection
+class AuthorCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,8 +14,8 @@ class VideoCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $this->collection->transform(function ($video) {
-            return new VideoResource($video);
+        $this->collection->transform(function ($item) {
+            return (new AuthorResource($item))->except(['description']);
         });
         return parent::toArray($request);
     }

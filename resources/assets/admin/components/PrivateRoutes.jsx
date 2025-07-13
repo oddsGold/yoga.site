@@ -9,9 +9,9 @@ import ImagePage from '../pages/DownloadPage/ImagePage.jsx';
 import FaqPage from '../pages/FaqPage/FaqPage.jsx';
 import CreateFaqPage from '../pages/FaqPage/CreateFaqPage.jsx';
 import EditFaqPage from '../pages/FaqPage/EditFaqPage.jsx';
-import VideoPage from '../pages/VideoPage/VideoPage.jsx';
-import CreateVideoPage from '../pages/VideoPage/CreateVideoPage.jsx';
-import EditVideoPage from '../pages/VideoPage/EditVideoPage.jsx';
+import AuthorPage from '../pages/AuthorPage/AuthorPage.jsx';
+import CreateAuthorPage from '../pages/AuthorPage/CreateAuthorPage.jsx';
+import EditAuthorPage from '../pages/AuthorPage/EditAuthorPage.jsx';
 import RolePage from '../pages/RolePage/RolePage.jsx';
 import CreateRolePage from '../pages/RolePage/CreateRolePage.jsx';
 import EditRolePage from '../pages/RolePage/EditRolePage.jsx';
@@ -28,6 +28,9 @@ import CreateWorthPage from '../pages/WorthPages/CreateWorthPage.jsx';
 import GetPage from '../pages/GetPages/GetPage.jsx';
 import EditGetPage from '../pages/GetPages/EditGetPage.jsx';
 import CreateGetPage from '../pages/GetPages/CreateGetPage.jsx';
+import LearningPage from '../pages/LearningPages/LearningPage.jsx';
+import CreateLearningPage from '../pages/LearningPages/CreateLearningPage.jsx';
+import EditLearningPage from '../pages/LearningPages/EditLearningPage.jsx';
 
 const PrivateRoutes = () => {
     return (
@@ -44,9 +47,6 @@ const PrivateRoutes = () => {
             <Route path="/admin/roles/:id/edit" element={<EditRolePage />} />
             <Route path="/admin/roles/create" element={<CreateRolePage />} />
 
-            {/*<Route path="/news" exact element={<BlogPage/>}/>*/}
-            {/*<Route path="/news/:id/edit" element={<EditBlogPage/>}/>*/}
-            {/*<Route path="/news/create" element={<CreateBlogPage/>}/>*/}
 
             <Route path="/admin/faqs" exact element={<FaqPage />} />
             <Route path="/admin/faqs/:id/edit" element={<EditFaqPage />} />
@@ -55,17 +55,13 @@ const PrivateRoutes = () => {
             <Route path="/admin/images" exact element={<ImagePage />} />
             <Route path="/admin/files" exact element={<FilePage />} />
 
-            {/*<Route path="/users/memos/types" exact element={<TypePage/>}/>*/}
-            {/*<Route path="/users/memos/types/:id/edit" element={<EditTypePage/>}/>*/}
-            {/*<Route path="/users/memos/types/create" element={<CreateTypePage/>}/>*/}
+            <Route path="/admin/learning" exact element={<LearningPage />} />
+            <Route path="/admin/learning/:id/edit" element={<EditLearningPage />} />
+            <Route path="/admin/learning/create" element={<CreateLearningPage />} />
 
-            {/*<Route path="/users/memos" exact element={<MemoPage/>}/>*/}
-            {/*<Route path="/users/memos/:id/edit" element={<EditMemoPage/>}/>*/}
-            {/*<Route path="/users/memos/create" element={<CreateMemoPage/>}/>*/}
-
-            <Route path="/admin/videos" exact element={<VideoPage />} />
-            <Route path="/admin/videos/:id/edit" element={<EditVideoPage />} />
-            <Route path="/admin/videos/create" element={<CreateVideoPage />} />
+            <Route path="/admin/author" exact element={<AuthorPage />} />
+            <Route path="/admin/author/:id/edit" element={<EditAuthorPage />} />
+            <Route path="/admin/author/create" element={<CreateAuthorPage />} />
 
             <Route path="/admin/social" exact element={<SocialPage />} />
             <Route path="/admin/social/:id/edit" element={<EditSocialPage />} />

@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Services\ImageService::class,
         \App\Services\FormService::class,
         \App\Services\NewsService::class,
-        \App\Services\VideoService::class,
+        \App\Services\AuthorService::class,
         \App\Services\FaqService::class,
         \App\Services\UserMemo\UserMemoService::class,
         \App\Services\UserMemo\TypeService::class,

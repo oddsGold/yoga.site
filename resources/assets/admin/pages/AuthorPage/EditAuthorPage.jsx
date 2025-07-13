@@ -1,18 +1,18 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import React, { useRef } from 'react';
-import { useCurrentVideoQuery, useUpdateVideoMutation } from '../../redux/video/videoApiSlice.js';
+import { useCurrentVideoQuery, useUpdateVideoMutation } from '../../redux/author/authorApiSlice.js';
 import { acceptHandler, errorHandler } from '../../components/utils/toastHandler.js';
 import { Loading } from '../../components/loadingBar/Loading.jsx';
 import PageMeta from '../../components/common/PageMeta.jsx';
 import PageBreadcrumb from '../../components/common/PageBreadCrumb.jsx';
 import ComponentCard from '../../components/common/ComponentCard.jsx';
-import VideoForm from '../../components/form/page-forms/VideoForm.jsx';
+import AuthorForm from '../../components/form/page-forms/AuthorForm.jsx';
 
-export default function EditVideoPage() {
+export default function EditAuthorPage() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const previousPath = useRef(location.state?.from?.pathname ?? '/admin/videos');
+  const previousPath = useRef(location.state?.from?.pathname ?? '/admin/author');
 
   const { data: currentVideo, error, isLoading: isCurrentVideoLoading } = useCurrentVideoQuery(id);
   const [updateVideo, { isLoading: isUpdateVideoLoading }] = useUpdateVideoMutation();
@@ -26,7 +26,7 @@ export default function EditVideoPage() {
     try {
       await updateVideo({ data: values }).unwrap();
       acceptHandler('Запис успішно відредаговано');
-      navigate('/admin/videos');
+      navigate('/admin/author');
     } catch (err) {
       errorHandler(err.data.message);
     }
@@ -44,7 +44,7 @@ export default function EditVideoPage() {
           <PageBreadcrumb
             breadcrumbs={[
               { title: 'Home', to: '/admin/dashboard' },
-              { title: 'Author', to: '/admin/videos' },
+              { title: 'Author', to: '/admin/author' },
               { title: 'Edit author page' },
             ]}
           />
@@ -56,7 +56,7 @@ export default function EditVideoPage() {
           ) : (
             <div className="space-y-6">
               <ComponentCard title="Edit author">
-                <VideoForm
+                <AuthorForm
                   current={currentVideo}
                   handleSubmit={handleSubmit}
                   backLinkPath={previousPath}

@@ -127,6 +127,22 @@ ul, ol
     margin-bottom: 0
     li
         line-height: 1.5rem
+.biography
+    ul
+        list-style: none
+        padding-left: 20px!important
+    li
+        position: relative
+        padding-bottom: 8px
+        &::before
+            content: ""
+            position: absolute
+            top: calc(1em * 0.6)
+            left: -19px
+            width: 6px
+            height: 6px
+            background: #8B6244
+            transform: rotate(45deg)
 ul.custom-list
     list-style: none
     padding-left: 20px!important

@@ -63,6 +63,12 @@ Route::middleware(['auth.ips'])->group(function(){
         Route::delete('worth/{id}', [App\Http\Controllers\Admin\WorthController::class, 'destroy']);
         Route::post('worth', [App\Http\Controllers\Admin\WorthController::class, 'store']);
 
+        Route::get('learning', [App\Http\Controllers\Admin\LearningController::class, 'index']);
+        Route::get('learning/{id}', [App\Http\Controllers\Admin\LearningController::class, 'edit']);
+        Route::post('learning/{id}', [App\Http\Controllers\Admin\LearningController::class, 'update']);
+        Route::delete('learning/{id}', [App\Http\Controllers\Admin\LearningController::class, 'destroy']);
+        Route::post('learning', [App\Http\Controllers\Admin\LearningController::class, 'store']);
+
         Route::get('faqs', [App\Http\Controllers\Admin\FaqController::class, 'index']);
         Route::get('faqs/{id}', [App\Http\Controllers\Admin\FaqController::class, 'edit']);
         Route::post('faqs/{id}', [App\Http\Controllers\Admin\FaqController::class, 'update']);
@@ -77,11 +83,11 @@ Route::middleware(['auth.ips'])->group(function(){
 
 
         //News
-        Route::get('videos', [App\Http\Controllers\Admin\VideoController::class, 'index']);
-        Route::get('videos/{id}', [App\Http\Controllers\Admin\VideoController::class, 'edit']);
-        Route::post('videos/{id}', [App\Http\Controllers\Admin\VideoController::class, 'update']);
-        Route::delete('videos/{id}', [App\Http\Controllers\Admin\VideoController::class, 'destroy']);
-        Route::post('videos', [App\Http\Controllers\Admin\VideoController::class, 'store']);
+        Route::get('videos', [App\Http\Controllers\Admin\AuthorController::class, 'index']);
+        Route::get('videos/{id}', [App\Http\Controllers\Admin\AuthorController::class, 'edit']);
+        Route::post('videos/{id}', [App\Http\Controllers\Admin\AuthorController::class, 'update']);
+        Route::delete('videos/{id}', [App\Http\Controllers\Admin\AuthorController::class, 'destroy']);
+        Route::post('videos', [App\Http\Controllers\Admin\AuthorController::class, 'store']);
 
         Route::get('users/memos/types', [App\Http\Controllers\Admin\UserMemo\TypeController::class, 'index']);
         Route::get('users/memos/types/{id}', [App\Http\Controllers\Admin\UserMemo\TypeController::class, 'edit']);

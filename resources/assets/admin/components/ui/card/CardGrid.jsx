@@ -13,8 +13,6 @@ export function CardGrid({
                          }) {
     const { setFileData } = rest;
 
-    console.log(data, hasMore);
-
     const deviceLabels = {
         desktop: { emoji: '🖥️', label: 'Desktop' },
         tablet: { emoji: '💻', label: 'Tablet' },

@@ -60,7 +60,7 @@ export default function ProgramForm({
 
               <div className="pb-3">
                   <Label>
-                      Title <span className="text-error-500">*</span>{' '}
+                      Description <span className="text-error-500">*</span>{' '}
                   </Label>
                   <Field
                       id="description"

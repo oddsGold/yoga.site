@@ -21,12 +21,13 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
 
         \App\Models\News::class => \App\Policies\NewsPolicy::class,
-        \App\Models\Video::class => \App\Policies\VideoPolicy::class,
+        \App\Models\Author::class => \App\Policies\AuthorPolicy::class,
         \App\Models\Faq::class => \App\Policies\FaqPolicy::class,
         \App\Models\Form\Presentation::class => \App\Policies\FormPresentationPolicy::class,
         \App\Models\SocialLinks::class => \App\Policies\SocialLinksPolicy::class,
         \App\Models\Program::class => \App\Policies\ProgramPolicy::class,
         \App\Models\Worth::class => \App\Policies\WorthPolicy::class,
+        \App\Models\Learning::class => \App\Policies\LearningPolicy::class,
         \App\Models\Get::class => \App\Policies\GetPolicy::class,
         \App\Models\UserMemo\Type::class => \App\Policies\UserMemo\TypePolicy::class,
         \App\Models\UserMemo\UserMemo::class => \App\Policies\UserMemo\UserMemoPolicy::class,

@@ -1,18 +1,18 @@
 <?php
 
 
-namespace App\Http\Requests\Admin\Video;
+namespace App\Http\Requests\Admin\Author;
 
 
 use App\Http\Requests\Site\BaseRequest;
 
-class VideoCreateRequest extends BaseRequest
+class AuthorCreateRequest extends BaseRequest
 {
     public function rules()
     {
         return [
             'title' => 'required|string|min:3|max:255',
-            'url' => 'required|string|max:255',
+            'description' => 'nullable|string|min:50',
             'preview' => 'nullable',
 
             // Валідація для desktop preview

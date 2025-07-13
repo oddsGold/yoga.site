@@ -48,6 +48,13 @@ class CRUDService implements CRUD
 
     public function getLast($length = 1)
     {
+        if ($length === 1) {
+            return $this->getModel()
+                ->newQuery()
+                ->with(['desktopPreview', 'tabletPreview', 'mobilePreview'])
+                ->latest()
+                ->first();
+        }
         return $this->getModel()->newQuery()->latest()->take($length)->get();
     }
 

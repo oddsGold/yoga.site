@@ -1,20 +1,20 @@
 <?php
 
 
-namespace App\Http\Resources\Video;
+namespace App\Http\Resources\Author;
 
 
 use App\Http\Resources\BaseResource;
 use App\Http\Resources\Image\ImageResource;
 
-class VideoResource extends BaseResource
+class AuthorResource extends BaseResource
 {
     public function toArray($request)
     {
         return $this->filtrateFields([
             'id' => $this->id,
             'title' => $this->title,
-            'url' => $this->url,
+            'description' => $this->description,
             'user' => $this->user ? $this->user->login : null,
             'desktop_preview' => $this->desktopPreview
                 ? (new ImageResource($this->desktopPreview))->only(['id', 'url', 'origin', 'name', 'path', 'created_at'])

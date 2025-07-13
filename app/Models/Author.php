@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Video extends Model
+class Author extends Model
 {
     use HasFactory,
         SoftDeletes;
@@ -14,7 +14,10 @@ class Video extends Model
 
     protected $fillable = [
         'title',
-        'url',
+        'description',
+        'desktop_preview_id',
+        'tablet_preview_id',
+        'mobile_preview_id'
     ];
 
     public $sortable = [

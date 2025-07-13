@@ -1,6 +1,6 @@
 import { api } from '../operations.js';
 
-export const videoApiSlice = api.injectEndpoints({
+export const authorApiSlice = api.injectEndpoints({
   endpoints: (builder) => ({
     video: builder.query({
       query: ({ page = 1, limit = 30, sort = '-id', status = [] }) => {
@@ -60,4 +60,4 @@ export const {
   useCreateVideoMutation,
   useCurrentVideoQuery,
   useUpdateVideoMutation,
-} = videoApiSlice;
+} = authorApiSlice;

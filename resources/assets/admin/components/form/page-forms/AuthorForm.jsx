@@ -17,8 +17,9 @@ import PaginationInfo from '../../generics/PaginationInfo.jsx';
 import { CardGrid } from '../../ui/card/CardGrid.jsx';
 import GroupButtons from '../../ui/button/GroupButtons.jsx';
 import Tabs from '../../ui/Tabs/Tabs.jsx';
+import Editor from '../../generics/Editor.jsx';
 
-export default function VideoForm({
+export default function AuthorForm({
                                       current = null,
                                       defaultCurrent,
                                       handleSubmit,
@@ -98,8 +99,8 @@ export default function VideoForm({
                         .max(255, 'Максимально допустимо 255 символів')
                         .min(3, 'Мінімально 3 символи')
                         .required('Поле необхідне до заповнення'),
-                    url: Yup.string()
-                        .max(255, 'Максимально допустимо 255 символів')
+                    description: Yup.string()
+                        .min(50, 'Мінімально 50 символів')
                         .required('Поле необхідне до заповнення'),
                 })}
                 onSubmit={(values) => {
@@ -140,19 +141,9 @@ export default function VideoForm({
                         <div className="space-y-6">
                             <div className="pb-3">
                                 <Label>
-                                    URL <span className="text-error-500">*</span>{' '}
+                                    Description <span className="text-error-500">*</span>{' '}
                                 </Label>
-                                <Field
-                                    id="url"
-                                    placeholder="Enter url"
-                                    name="url"
-                                    autoFocus
-                                    component={FormikInput}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={Boolean(errors.url && touched.url)}
-                                    helperText={touched.url && errors.url}
-                                />
+                                <Editor name={'description'} required={true} />
                             </div>
                         </div>
 

@@ -12,6 +12,7 @@ const Tabs = ({
                 <div className="space-y-6">
                     <div className="p-6 border border-gray-200 rounded-xl dark:border-gray-800">
                         <div className="border-b border-gray-200 dark:border-gray-800">
+                            <p className="mb-5 mr-10 text-base text-gray-800 dark:text-white/90">Select an image for this section.</p>
                             <nav className="-mb-px flex space-x-2 overflow-x-auto [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-200 dark:[&::-webkit-scrollbar-thumb]:bg-gray-600 dark:[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1.5">
                                 {tabs.map((tab) => (
                                     <div

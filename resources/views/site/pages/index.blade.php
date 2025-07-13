@@ -226,61 +226,57 @@
             </div>
         </section>
 
-        <section class="biography" id="biography">
+        @if(!empty($author))
+            <section class="biography" id="biography">
             <div class="biography-bg">
                 <div class="biography-title">
                     <h2>
-                        Марія Саванчук
+                        {{ $author->title }}
                     </h2>
                 </div>
                 <div class="biography-photo">
                     <picture class="w-100 h-100">
                         <!-- Десктоп: якщо ширина ≥ 992px -->
-                        <source
-                            media="(min-width: 1024px)"
-                            srcset="{{ Vite::image('biography-photo-mob.png') }}"
-                        >
+                        @isset($author->desktopPreview)
+                            <source
+                                media="(min-width: 1024px)"
+                                srcset="{{ $author->desktopPreview->path }}/{{  $author->desktopPreview->name }}"
+                            >
+                        @endisset
 
                         <!-- Планшет: якщо ширина ≥ 768px -->
-                        <source
-                            media="(min-width: 768px)"
-                            srcset="{{ Vite::image('biography-photo-mob.png') }}"
-                        >
+                        @isset($author->tabletPreview)
+                            <source
+                                media="(min-width: 768px)"
+                                srcset="{{ $author->tabletPreview->path }}/{{  $author->tabletPreview->name }}"
+                            >
+                        @endisset
 
                         <!-- За замовчуванням (mobile-first) -->
-                        <img
-                            src="{{ Vite::image('biography-photo-mob.png') }}"
-                            alt="фон"
-                            class="w-100 h-100"
-                            style="object-fit: cover;"
-                        >
+                        @isset($author->mobilePreview)
+                            <img
+                                src="{{ $author->mobilePreview->path }}/{{  $author->mobilePreview->name }}"
+                                alt="фон"
+                                class="w-100 h-100"
+                                style="object-fit: cover;"
+                            >
+                        @else
+                            <!-- Fallback якщо немає мобільного зображення -->
+                            <img
+                                src="{{ Vite::image('default-image.jpg') }}"
+                                alt="фон"
+                                class="w-100 h-100"
+                                style="object-fit: cover;"
+                            >
+                        @endisset
                     </picture>
                 </div>
                 <div class="biography-description">
-                    <p>
-                        Мене звати Маша Саванчук.Я сертифікований викладач йоги (500 годин), ароматерапевт, провідник
-                        сакральної геометрії та майстер цвяхостояння.
-                        За моїми плечима — понад 20 років практики, численні ретрити, майстер-класи й індивідуальні
-                        сесії, де я допомагаю людям:
-                    </p>
-                    <ul class="custom-list">
-                        <li>
-                            повертати зв’язок із тілом
-                        </li>
-                        <li>
-                            вивільняти глибокі емоції
-                        </li>
-                        <li>
-                            знаходити гармонію між внутрішнім і зовнішнім
-                        </li>
-                    </ul>
-                    <p>
-                        У своїй роботі я об’єдную йогу, аромати, сакральну геометрію та цвяхостояння — ці інструменти
-                        працюють одночасно з тілом, розумом і душею, створюючи цілісний ефект трансформації.
-                    </p>
+                    {!! $author->description !!}
                 </div>
             </div>
         </section>
+        @endif
 
         <section class="experience for-you">
             <div class="container">
@@ -348,7 +344,8 @@
             </div>
         </section>
 
-        <section class="how" id="how">
+        @if(!empty($learning))
+            <section class="how" id="how">
             <div class="container">
                 <div class="how-title">
                     <h2>
@@ -359,23 +356,18 @@
                     </p>
                 </div>
                 <div class="how-steps">
-                    <div class="how-steps-row">
-                        <span>Формат</span>
-                        <p>
-                            Весь курс проходить онлайн — ти отримуєш доступ до закритої платформи, де зібрані відеоуроки
-                            для кожної чакри. Дивишся у зручний час, з будь-якого пристрою.
-                        </p>
-                    </div>
-                    <div class="how-steps-row">
-                        <span>Графік</span>
-                        <p>
-                            7 занять — по одному на кожну чакру. Можна проходити щодня, через день або в своєму ритмі.
-                            Головне — слухати себе. Кожен урок займає 45–50 хвилин: трохи часу — і стільки ефекту!
-                        </p>
-                    </div>
+                    @foreach($learning as $item)
+                        <div class="how-steps-row">
+                            <span>{{ $item->title }}</span>
+                            <p>
+                                {{ $item->description }}
+                            </p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
+        @endif
 
         <section class="waiting">
             <picture class="position-absolute top-0 start-0 w-100 h-100">
