@@ -34,7 +34,7 @@
                 >
             </picture>
 
-            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="opacity: .2;"></div>
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="opacity: .4;"></div>
 
             <div class="position-relative">
                 <div class="main-name">
@@ -70,7 +70,7 @@
         <section class="slider">
             <div class="container">
                 <div class="slider-row">
-                    <a href="#worth">
+                    <a href="#worth" class="active">
                         Для кого?
                         <div class="divider">
                             <span class="romb"></span>
@@ -374,13 +374,13 @@
                 <!-- Десктоп: якщо ширина ≥ 992px -->
                 <source
                     media="(min-width: 1024px)"
-                    srcset="{{ Vite::image('main-bg-mb.jpg') }}"
+                    srcset="{{ Vite::image('waiting-bg-mob.png') }}"
                 >
 
                 <!-- Планшет: якщо ширина ≥ 768px -->
                 <source
                     media="(min-width: 768px)"
-                    srcset="{{ Vite::image('main-bg-mb.jpg') }}"
+                    srcset="{{ Vite::image('waiting-bg-mob.png') }}"
                 >
 
                 <!-- За замовчуванням (mobile-first) -->
@@ -561,12 +561,12 @@
 
     <footer>
         <div class="footer-row">
-            <img src="{{ Vite::image('worth_bg_mob.png') }}" alt="">
-            <img src="{{ Vite::image('lesson-img-mob.png') }}" alt="">
-            <img src="{{ Vite::image('worth_bg_mob.png') }}" alt="">
-            <img src="{{ Vite::image('lesson-img-mob.png') }}" alt="">
-            <img src="{{ Vite::image('worth_bg_mob.png') }}" alt="">
-            <img src="{{ Vite::image('lesson-img-mob.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-1.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-2.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-3.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-4.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-5.png') }}" alt="">
+            <img src="{{ Vite::image('footer-img-6.png') }}" alt="">
         </div>
     </footer>
 
@@ -602,63 +602,140 @@
 @section('script-body')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.querySelector('.slider');
             const sliderRow = document.querySelector('.slider-row');
             const links = Array.from(sliderRow.querySelectorAll('a'));
+            const sections = links.map(link => document.querySelector(link.getAttribute('href')));
+            const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+            let isSticky = false;
+            let sliderOriginalOffset = slider.offsetTop; // Запам'ятовуємо початкову позицію
 
-            const activateFirst = () => {
-                links.forEach(a => a.classList.remove('active'));
-                links[0].classList.add('active');
-            };
+            const isDesktop = window.matchMedia('(min-width: 320px)').matches;
 
-            const checkActiveElement = () => {
-                const { scrollLeft, scrollWidth, clientWidth } = sliderRow;
+            const scrollToActiveLink = (activeLink) => {
+                const containerWidth = sliderRow.offsetWidth;
+                const linkLeft = activeLink.offsetLeft;
+                const linkWidth = activeLink.offsetWidth;
 
-                if (scrollLeft + clientWidth >= scrollWidth - 1) {
-                    links.forEach(a => a.classList.remove('active'));
-                    links[links.length - 1].classList.add('active');
-                    return;
-                }
+                const scrollPosition = linkLeft - (containerWidth / 2) + (linkWidth / 2);
 
-                const sliderRect = sliderRow.getBoundingClientRect();
-                let found = false;
-
-                links.forEach(a => {
-                    if (found) return;
-                    const r = a.getBoundingClientRect();
-                    const visible = Math.min(r.right, sliderRect.right)
-                        - Math.max(r.left, sliderRect.left);
-                    if (visible > r.width * 0.5) {
-                        links.forEach(x => x.classList.remove('active'));
-                        a.classList.add('active');
-                        found = true;
-                    }
+                sliderRow.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
                 });
-
-                if (!found) {
-                    activateFirst();
-                }
             };
 
-            const isMobile = window.matchMedia('(max-width: 540px)').matches;
+            const setupMobileSlider = () => {
+                sliderRow.style.overflowX = 'auto';
+                sliderRow.style.justifyContent = 'flex-start';
 
-            if (isMobile) {
+                const checkActiveElement = () => {
+                    const sliderRect = sliderRow.getBoundingClientRect();
+                    let found = false;
+
+                    links.forEach(a => {
+                        if (found) return;
+                        const r = a.getBoundingClientRect();
+                        const visible = Math.min(r.right, sliderRect.right) - Math.max(r.left, sliderRect.left);
+                        if (visible > r.width * 0.5) {
+                            links.forEach(x => x.classList.remove('active'));
+                            a.classList.add('active');
+                            found = true;
+                        }
+                    });
+                };
+
                 sliderRow.addEventListener('scroll', checkActiveElement);
                 checkActiveElement();
-            } else {
-                activateFirst();
-            }
+            };
+
+            const setupDesktopSticky = () => {
+                const handleScroll = () => {
+                    const scrollY = window.scrollY || window.pageYOffset;
+                    const sliderRect = slider.getBoundingClientRect();
+                    const shouldStick = sliderRect.top <= headerHeight;
+                    const shouldUnstick = scrollY <= sliderOriginalOffset - headerHeight;
+
+                    if (shouldStick && !isSticky) {
+                        slider.classList.add('sticky');
+                        isSticky = true;
+                    } else if ((!shouldStick || shouldUnstick) && isSticky) {
+                        slider.classList.remove('sticky');
+                        isSticky = false;
+                    }
+                };
+
+                const setActiveLink = () => {
+                    let closestSection = null;
+                    let smallestDistance = Infinity;
+                    const offset = headerHeight + 20;
+
+                    sections.forEach(section => {
+                        if (!section) return;
+                        const rect = section.getBoundingClientRect();
+
+                        const distance = Math.abs(rect.top - offset);
+
+                        if (rect.top <= offset && rect.bottom >= 0) {
+                            if (distance < smallestDistance) {
+                                smallestDistance = distance;
+                                closestSection = section;
+                            }
+                        }
+                    });
+
+                    if (closestSection) {
+                        links.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${closestSection.id}`) {
+                                link.classList.add('active');
+                                scrollToActiveLink(link); // Плавний скрол до пункту (якщо треба)
+                            }
+                        });
+                    }
+                };
+
+                window.addEventListener('scroll', () => {
+                    handleScroll();
+                    if (isSticky) setActiveLink();
+                });
+                handleScroll();
+            };
 
             links.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    links.forEach(a => a.classList.remove('active'));
-                    link.classList.add('active');
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
 
-                    link.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center',
-                    });
+                    if (targetSection) {
+                        const targetPosition = targetSection.offsetTop - headerHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        if (!isDesktop) {
+                            links.forEach(a => a.classList.remove('active'));
+                            link.classList.add('active');
+                            scrollToActiveLink(link);
+                        }
+                    }
                 });
+            });
+
+            if (isDesktop) {
+                setupDesktopSticky();
+            } else {
+                setupMobileSlider();
+            }
+
+            window.addEventListener('resize', () => {
+                sliderOriginalOffset = slider.offsetTop;
+                const newIsDesktop = window.matchMedia('(min-width: 768px)').matches;
+                if (newIsDesktop !== isDesktop) {
+                    location.reload();
+                }
             });
         });
     </script>

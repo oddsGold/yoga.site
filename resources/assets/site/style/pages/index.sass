@@ -120,6 +120,23 @@ main
                             font-size: 2.5rem
                             padding-right: 11px
 
+                @include tablet
+                    min-height: 800px
+                    picture
+                        img
+                            object-position: 0 94%
+                    .main-title
+                        h1
+                            font-size: 4.375rem
+                    .main-access
+                        .main-access-info
+                            font-size: 1.5rem
+                    .main-additional-text
+                        p
+                            font-size: 3.8rem
+                            &:first-child
+                                font-size: 4.5rem
+
 
             &.start
                 padding: 20px 0 33px 0
@@ -175,6 +192,15 @@ main
                     a.active
                         .divider
                             display: flex
+                &.sticky
+                    background-color: rgba(255, 255, 255, 0.71)
+                    z-index: 1000
+                    position: fixed
+                    top: 0
+                    left: 0
+                    right: 0
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1)
+                    animation: slideDown 0.3s ease
 
 
             &.strings-soul
@@ -198,6 +224,11 @@ main
                 .strings-soul-btn
                     button
                         width: 100%
+
+                @include tablet
+                    .strings-soul-btn
+                        button
+                            width: 335px
 
 
             &.worth
@@ -250,6 +281,13 @@ main
                                     height: 6px
                                     background: #8B6244
                                     transform: translate(50%, -50%) rotate(45deg)
+
+                @include tablet
+                    padding-top: 375px
+                    padding-bottom: 20px
+                    .worth-bg
+                        max-width: 500px
+                        margin: 0 auto
 
 
             &.for-you
@@ -310,6 +348,16 @@ main
                                 background: $color-base-green
                                 transform: rotate(45deg)
                                 z-index: 1
+
+                @include tablet
+                    .for-you-text
+                        min-height: 650px
+                        background-position: 50% 0
+                        justify-content: flex-end
+                        p
+                            margin-right: -24px
+                            width: 395px
+                            font-size: 1.5rem
 
 
             &.get
@@ -495,6 +543,11 @@ main
                                 color: $color-gray
                                 font-family: $second-font
                                 line-height: 1.5rem
+
+                @include tablet
+                    .program-btn
+                        button
+                            width: 335px
 
 
             &.lesson
@@ -748,6 +801,8 @@ main
                     button
                         width: 100%
 
+                @include tablet
+                    padding-top: 230px
 
             &.f-menu
                 min-height: auto
