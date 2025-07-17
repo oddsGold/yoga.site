@@ -3,7 +3,7 @@
 
 namespace App\Services\Admin\Query;
 
-
+use App\Contracts\JWT;
 use Illuminate\Http\Request;
 
 class OptionsService
@@ -13,16 +13,18 @@ class OptionsService
     protected SearchService $searchService;
     protected FilterService $filterService;
     protected PaginateService $paginateService;
+    protected JWT $JWTService;
     protected Request $request;
 
     public function __construct(
         Request $request, SortService $sortService, SearchService $searchService,
-        FilterService $filterService, PaginateService $paginateService
+        FilterService $filterService, PaginateService $paginateService, JWT $JWTService
     ){
         $this->sortService = $sortService;
         $this->filterService = $filterService;
         $this->searchService = $searchService;
         $this->paginateService = $paginateService;
+        $this->JWTService = $JWTService;
         $this->request = $request;
     }
 

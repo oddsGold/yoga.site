@@ -29,6 +29,11 @@ class CRUDService implements CRUD
         return $this->getModel()->newQuery()->first();
     }
 
+    public function getAllWithoutPublishedLast()
+    {
+        return $this->getModel()->newQuery()->latest()->first();
+    }
+
     public function getAllWithoutPublishedAll()
     {
         return $this->getModel()->newQuery()->get();

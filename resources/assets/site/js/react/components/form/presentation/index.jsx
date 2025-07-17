@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import API from "../../../utils/api";
+import PaymentButton from './PaymentButton.jsx';
 
 const TextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -74,83 +75,86 @@ const Presentation = () => {
     return (
         <>
             {!result ? (
-                <Formik
-                    initialValues={{
-                        name: '',
-                        nickname: '',
-                        phone: '',
-                        email: '',
-                    }}
-                    validationSchema={Yup.object({
-                        name: Yup.string()
-                            .min(3, "Ім'я не може бути менше 3-х символів")
-                            .max(200, "Ім'я не може бути більше 200 символів")
-                            .required("Це поле має бути заповнене"),
-                        nickname: Yup.string()
-                            .min(2, "Нік не може бути менше 2-х символів")
-                            .max(200, "Нік не може бути більше 200 символів")
-                            .required("Це поле має бути заповнене"),
-                        phone: Yup.string()
-                            .min(7, "Телефон не може бути менше 7 символів")
-                            .max(18, "Телефон не може бути більше 18 символів")
-                            .matches(/^[\d+\- \(\)]+$/, "Недійсний номер телефону")
-                            .required("Це поле має бути заповнене"),
-                        email: Yup.string()
-                            .min(6, "Емейл не може бути менше 6 символів")
-                            .max(150, "Емейл не може бути більше 150 символів")
-                            .email("Недійсна електронна адреса")
-                            .required("Це поле має бути заповнене"),
-                    })}
-                    onSubmit={(values, actions) => {
-                        handleSubmit(values);
-                        actions.setSubmitting(false);
-                    }}
-                >
-                    {({ isValid, dirty }) => (
-                        <Form>
-                            <TextInput
-                                label="Ім’я"
-                                name="name"
-                                type="text"
-                                placeholder="Введіть ім’я"
-                            />
+                <>
+                    <Formik
+                        initialValues={{
+                            name: '',
+                            nickname: '',
+                            phone: '',
+                            email: '',
+                        }}
+                        validationSchema={Yup.object({
+                            name: Yup.string()
+                                .min(3, "Ім'я не може бути менше 3-х символів")
+                                .max(200, "Ім'я не може бути більше 200 символів")
+                                .required("Це поле має бути заповнене"),
+                            nickname: Yup.string()
+                                .min(2, "Нік не може бути менше 2-х символів")
+                                .max(200, "Нік не може бути більше 200 символів")
+                                .required("Це поле має бути заповнене"),
+                            phone: Yup.string()
+                                .min(7, "Телефон не може бути менше 7 символів")
+                                .max(18, "Телефон не може бути більше 18 символів")
+                                .matches(/^[\d+\- \(\)]+$/, "Недійсний номер телефону")
+                                .required("Це поле має бути заповнене"),
+                            email: Yup.string()
+                                .min(6, "Емейл не може бути менше 6 символів")
+                                .max(150, "Емейл не може бути більше 150 символів")
+                                .email("Недійсна електронна адреса")
+                                .required("Це поле має бути заповнене"),
+                        })}
+                        onSubmit={(values, actions) => {
+                            handleSubmit(values);
+                            actions.setSubmitting(false);
+                        }}
+                    >
+                        {({ isValid, dirty }) => (
+                            <Form>
+                                <TextInput
+                                    label="Ім’я"
+                                    name="name"
+                                    type="text"
+                                    placeholder="Введіть ім’я"
+                                />
 
-                            <TextInput
-                                label="Нік в телеграмі"
-                                name="nickname"
-                                type="text"
-                                placeholder="Введіть нік"
-                            />
+                                <TextInput
+                                    label="Нік в телеграмі"
+                                    name="nickname"
+                                    type="text"
+                                    placeholder="Введіть нік"
+                                />
 
-                            <TextInput
-                                label="Номер телефону"
-                                name="phone"
-                                type="text"
-                                placeholder="+1 (555) 000-0000"
-                            />
+                                <TextInput
+                                    label="Номер телефону"
+                                    name="phone"
+                                    type="text"
+                                    placeholder="+1 (555) 000-0000"
+                                />
 
-                            <TextInput
-                                label="Електронна пошта"
-                                name="email"
-                                type="email"
-                                placeholder="Введіть електронну пошту"
-                            />
+                                <TextInput
+                                    label="Електронна пошта"
+                                    name="email"
+                                    type="email"
+                                    placeholder="Введіть електронну пошту"
+                                />
 
-                            <div className="row">
-                                <div className="col text-center">
-                                    <a href={fileName} ref={downloadRef} className="downloadPresentation" />
-                                    <button
-                                        type="submit"
-                                        className={`btn btn-base btn-default orange ${isValid && dirty ? 'ready' : ''}`}
-                                        disabled={!(isValid && dirty) || loading}
-                                    >
-                                        {loading ? 'Відправляємо...' : 'Відправити заявку'}
-                                    </button>
+                                <div className="row">
+                                    <div className="col text-center">
+                                        <a href={fileName} ref={downloadRef} className="downloadPresentation" />
+                                        <button
+                                            type="submit"
+                                            className={`btn btn-base btn-default orange ${isValid && dirty ? 'ready' : ''}`}
+                                            disabled={!(isValid && dirty) || loading}
+                                        >
+                                            {loading ? 'Відправляємо...' : 'Відправити заявку'}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
+                            </Form>
+                        )}
+                    </Formik>
+                    {/*<PaymentButton />*/}
+                </>
             ) : (
                 <div className="presentation-form">
                     <div className="success-msg">

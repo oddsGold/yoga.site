@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,5 +48,13 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $e)
+    {
+        if($e instanceof NotFoundHttpException) {
+            Log::error('Not found exception. URL:' . url()->current() . ' from:' . request()->ip() . ' ref:' . request()->headers->get('referer'));
+        }
+        parent::report($e);
     }
 }

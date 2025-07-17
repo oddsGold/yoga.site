@@ -43,20 +43,56 @@
                     <span class="line-arrow line-arrow--reverse"></span>
                 </div>
                 <div class="container">
-                    <p class="main-info">7-ми денний онлайн курс</p>
-                    <div class="main-title">
-                        <h1 class="text-end">
-                            <span class="d-block text-start">З МАРІЄЮ</span>
-                            САВАНЧУК
-                        </h1>
-                    </div>
-                    <div class="main-access">
-                        <p class="main-access-info">Доступ на 2 місяці</p>
-                    </div>
-                    <div class="main-additional-text">
-                        <p>Сім струн душі</p>
-                        <p>ЙОГА АРОМАТИ ЧАКРИ</p>
-                    </div>
+                    @if(!empty($mainSection))
+                        @if($mainSection->title)
+                            <p class="main-info">{{ $mainSection->title }}</p>
+                        @else
+                            <p class="main-info">7-ми денний онлайн курс</p>
+                        @endif
+
+                        <div class="main-title">
+                            <h1 class="text-end">
+                                <span class="d-block text-start">З МАРІЄЮ</span>
+                                САВАНЧУК
+                            </h1>
+                        </div>
+
+                        @if($mainSection->description_1)
+                            <div class="main-access">
+                                <p class="main-access-info">{{ $mainSection->description_1 }}</p>
+                            </div>
+                        @else
+                            <div class="main-access">
+                                <p class="main-access-info">Доступ на 2 місяці</p>
+                            </div>
+                        @endif
+
+                        @if($mainSection->description_2)
+                            <div class="main-additional-text">
+                                {!! $mainSection->description_2 !!}
+                            </div>
+                        @else
+                            <div class="main-additional-text">
+                                <p>Сім струн душі</p>
+                                <p>ЙОГА АРОМАТИ ЧАКРИ</p>
+                            </div>
+                        @endif
+                    @else
+                        <p class="main-info">7-ми денний онлайн курс</p>
+                        <div class="main-title">
+                            <h1 class="text-end">
+                                <span class="d-block text-start">З МАРІЄЮ</span>
+                                САВАНЧУК
+                            </h1>
+                        </div>
+                        <div class="main-access">
+                            <p class="main-access-info">Доступ на 2 місяці</p>
+                        </div>
+                        <div class="main-additional-text">
+                            <p>Сім струн душі</p>
+                            <p>ЙОГА АРОМАТИ ЧАКРИ</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </section>
@@ -151,22 +187,22 @@
 
         @if(!empty($worth))
             <section class="worth" id="worth">
-            <div class="worth-bg">
-                <div class="worth-title">
-                    <h2>
-                        Тобі варто пройти цей курс, якщо:
-                    </h2>
+                <div class="worth-bg">
+                    <div class="worth-title">
+                        <h2>
+                            Тобі варто пройти цей курс, якщо:
+                        </h2>
+                    </div>
+                    <ul class="worth-list">
+                        @foreach($worth as $item)
+                            <li>
+                                <span></span>
+                                {{ $item->description }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <ul class="worth-list">
-                    @foreach($worth as $item)
-                        <li>
-                            <span></span>
-                            {{ $item->description }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </section>
+            </section>
         @endif
 
         <section class="for-you">
@@ -187,29 +223,29 @@
 
         @if(!empty($benefits))
             <section class="get" id="get">
-            <div class="container">
-                <div class="get-title">
-                    <h2>
-                        Що ти отримаєш на курсі «Сім струн душі»
-                    </h2>
-                    <p>
-                        Це не просто йога. І не просто аромати. Це 7 практик, що відкривають тебе — чакра за чакрою.
-                    </p>
+                <div class="container">
+                    <div class="get-title">
+                        <h2>
+                            Що ти отримаєш на курсі «Сім струн душі»
+                        </h2>
+                        <p>
+                            Це не просто йога. І не просто аромати. Це 7 практик, що відкривають тебе — чакра за чакрою.
+                        </p>
+                    </div>
+                    <div class="get-list">
+                        <ul>
+                            @foreach($benefits as $benefit)
+                                <li>
+                                    <span></span>
+                                    {{ $benefit->description }}
+                                </li>
+                            @endforeach
+                        </ul>
+                        <button class="btn btn-base" data-bs-toggle="modal" data-bs-target="#get-presentation">Старт
+                        </button>
+                    </div>
                 </div>
-                <div class="get-list">
-                    <ul>
-                        @foreach($benefits as $benefit)
-                            <li>
-                                <span></span>
-                                {{ $benefit->description }}
-                            </li>
-                        @endforeach
-                    </ul>
-                    <button class="btn btn-base" data-bs-toggle="modal" data-bs-target="#get-presentation">Старт
-                    </button>
-                </div>
-            </div>
-        </section>
+            </section>
         @endif
 
         <section class="tool">
@@ -228,54 +264,54 @@
 
         @if(!empty($author))
             <section class="biography" id="biography">
-            <div class="biography-bg">
-                <div class="biography-title">
-                    <h2>
-                        {{ $author->title }}
-                    </h2>
-                </div>
-                <div class="biography-photo">
-                    <picture class="w-100 h-100">
-                        <!-- Десктоп: якщо ширина ≥ 992px -->
-                        @isset($author->desktopPreview)
-                            <source
-                                media="(min-width: 1024px)"
-                                srcset="{{ $author->desktopPreview->path }}/{{  $author->desktopPreview->name }}"
-                            >
-                        @endisset
+                <div class="biography-bg">
+                    <div class="biography-title">
+                        <h2>
+                            {{ $author->title }}
+                        </h2>
+                    </div>
+                    <div class="biography-photo">
+                        <picture class="w-100 h-100">
+                            <!-- Десктоп: якщо ширина ≥ 992px -->
+                            @isset($author->desktopPreview)
+                                <source
+                                    media="(min-width: 1024px)"
+                                    srcset="{{ $author->desktopPreview->path }}/{{  $author->desktopPreview->name }}"
+                                >
+                            @endisset
 
-                        <!-- Планшет: якщо ширина ≥ 768px -->
-                        @isset($author->tabletPreview)
-                            <source
-                                media="(min-width: 768px)"
-                                srcset="{{ $author->tabletPreview->path }}/{{  $author->tabletPreview->name }}"
-                            >
-                        @endisset
+                            <!-- Планшет: якщо ширина ≥ 768px -->
+                            @isset($author->tabletPreview)
+                                <source
+                                    media="(min-width: 768px)"
+                                    srcset="{{ $author->tabletPreview->path }}/{{  $author->tabletPreview->name }}"
+                                >
+                            @endisset
 
-                        <!-- За замовчуванням (mobile-first) -->
-                        @isset($author->mobilePreview)
-                            <img
-                                src="{{ $author->mobilePreview->path }}/{{  $author->mobilePreview->name }}"
-                                alt="фон"
-                                class="w-100 h-100"
-                                style="object-fit: cover;"
-                            >
-                        @else
-                            <!-- Fallback якщо немає мобільного зображення -->
-                            <img
-                                src="{{ Vite::image('default-image.jpg') }}"
-                                alt="фон"
-                                class="w-100 h-100"
-                                style="object-fit: cover;"
-                            >
-                        @endisset
-                    </picture>
+                            <!-- За замовчуванням (mobile-first) -->
+                            @isset($author->mobilePreview)
+                                <img
+                                    src="{{ $author->mobilePreview->path }}/{{  $author->mobilePreview->name }}"
+                                    alt="фон"
+                                    class="w-100 h-100"
+                                    style="object-fit: cover;"
+                                >
+                            @else
+                                <!-- Fallback якщо немає мобільного зображення -->
+                                <img
+                                    src="{{ Vite::image('default-image.jpg') }}"
+                                    alt="фон"
+                                    class="w-100 h-100"
+                                    style="object-fit: cover;"
+                                >
+                            @endisset
+                        </picture>
+                    </div>
+                    <div class="biography-description">
+                        {!! $author->description !!}
+                    </div>
                 </div>
-                <div class="biography-description">
-                    {!! $author->description !!}
-                </div>
-            </div>
-        </section>
+            </section>
         @endif
 
         <section class="experience for-you">
@@ -346,27 +382,27 @@
 
         @if(!empty($learning))
             <section class="how" id="how">
-            <div class="container">
-                <div class="how-title">
-                    <h2>
-                        Як проходитиме навчання
-                    </h2>
-                    <p>
-                        У тебе буде свій простір сили — тихий, затишний, тільки для тебе.
-                    </p>
+                <div class="container">
+                    <div class="how-title">
+                        <h2>
+                            Як проходитиме навчання
+                        </h2>
+                        <p>
+                            У тебе буде свій простір сили — тихий, затишний, тільки для тебе.
+                        </p>
+                    </div>
+                    <div class="how-steps">
+                        @foreach($learning as $item)
+                            <div class="how-steps-row">
+                                <span>{{ $item->title }}</span>
+                                <p>
+                                    {{ $item->description }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="how-steps">
-                    @foreach($learning as $item)
-                        <div class="how-steps-row">
-                            <span>{{ $item->title }}</span>
-                            <p>
-                                {{ $item->description }}
-                            </p>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
+            </section>
         @endif
 
         <section class="waiting">
@@ -475,28 +511,24 @@
 
         <section class="faq" id="faq"></section>
 
-        <section class="ready worth">
-            <div class="worth-bg">
-                <div class="worth-title">
-                    <h2>
-                        Готова увімкнути свою внутрішню силу?
-                    </h2>
+        @if(!empty($bonus))
+            <section class="ready worth">
+                <div class="worth-bg">
+                    <div class="worth-title">
+                        <h2>
+                            {{ $bonus->title }}
+                        </h2>
+                    </div>
+                    <div class="ready-description">
+                        {!! $bonus->description !!}
+                    </div>
+                    <div class="ready-btn">
+                        <button class="btn btn-base" data-bs-toggle="modal" data-bs-target="#get-presentation">Старт
+                        </button>
+                    </div>
                 </div>
-                <div class="ready-description">
-                    <p>
-                        Твоя енергія — це не загадка. Це система, з якою можна працювати. І ти вже на порозі змін.
-                    </p>
-                    <p>
-                        <b>Бонус:</b> медитація "Активація всіх чакр". Коротка ранкова практика, яка допоможе
-                        налаштувати енергію на день.
-                    </p>
-                </div>
-                <div class="ready-btn">
-                    <button class="btn btn-base" data-bs-toggle="modal" data-bs-target="#get-presentation">Старт
-                    </button>
-                </div>
-            </div>
-        </section>
+            </section>
+        @endif
 
         <section class="f-menu main">
             <div class="main-name">
@@ -608,98 +640,80 @@
             const sections = links.map(link => document.querySelector(link.getAttribute('href')));
             const headerHeight = document.querySelector('header')?.offsetHeight || 0;
             let isSticky = false;
-            let sliderOriginalOffset = slider.offsetTop; // Запам'ятовуємо початкову позицію
-
-            const isDesktop = window.matchMedia('(min-width: 320px)').matches;
+            let sliderOriginalOffset = slider.offsetTop;
+            let lastScrollY = window.scrollY;
+            let ticking = false;
 
             const scrollToActiveLink = (activeLink) => {
                 const containerWidth = sliderRow.offsetWidth;
                 const linkLeft = activeLink.offsetLeft;
                 const linkWidth = activeLink.offsetWidth;
-
                 const scrollPosition = linkLeft - (containerWidth / 2) + (linkWidth / 2);
 
                 sliderRow.scrollTo({
                     left: scrollPosition,
-                    behavior: 'smooth'
+                    behavior: 'smooth',
                 });
             };
 
-            const setupMobileSlider = () => {
-                sliderRow.style.overflowX = 'auto';
-                sliderRow.style.justifyContent = 'flex-start';
+            const setActiveLink = () => {
+                let closestSection = null;
+                let smallestDistance = Infinity;
+                const offset = headerHeight + 20;
 
-                const checkActiveElement = () => {
-                    const sliderRect = sliderRow.getBoundingClientRect();
-                    let found = false;
+                sections.forEach(section => {
+                    if (!section) return;
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top - offset);
 
-                    links.forEach(a => {
-                        if (found) return;
-                        const r = a.getBoundingClientRect();
-                        const visible = Math.min(r.right, sliderRect.right) - Math.max(r.left, sliderRect.left);
-                        if (visible > r.width * 0.5) {
-                            links.forEach(x => x.classList.remove('active'));
-                            a.classList.add('active');
-                            found = true;
+                    if (rect.top <= offset && rect.bottom >= 0) {
+                        if (distance < smallestDistance) {
+                            smallestDistance = distance;
+                            closestSection = section;
+                        }
+                    }
+                });
+
+                if (closestSection) {
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${closestSection.id}`) {
+                            link.classList.add('active');
+                            scrollToActiveLink(link);
                         }
                     });
-                };
-
-                sliderRow.addEventListener('scroll', checkActiveElement);
-                checkActiveElement();
+                }
             };
 
-            const setupDesktopSticky = () => {
-                const handleScroll = () => {
-                    const scrollY = window.scrollY || window.pageYOffset;
-                    const sliderRect = slider.getBoundingClientRect();
-                    const shouldStick = sliderRect.top <= headerHeight;
-                    const shouldUnstick = scrollY <= sliderOriginalOffset - headerHeight;
+            const handleScroll = () => {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const sliderRect = slider.getBoundingClientRect();
+                const shouldStick = sliderRect.top <= headerHeight;
+                const shouldUnstick = scrollY <= sliderOriginalOffset - headerHeight;
 
-                    if (shouldStick && !isSticky) {
-                        slider.classList.add('sticky');
-                        isSticky = true;
-                    } else if ((!shouldStick || shouldUnstick) && isSticky) {
-                        slider.classList.remove('sticky');
-                        isSticky = false;
-                    }
-                };
+                if (shouldStick && !isSticky) {
+                    slider.classList.add('sticky');
 
-                const setActiveLink = () => {
-                    let closestSection = null;
-                    let smallestDistance = Infinity;
-                    const offset = headerHeight + 20;
+                    slider.parentElement.style.paddingTop = `${slider.offsetHeight}px`;
+                    isSticky = true;
+                } else if ((!shouldStick || shouldUnstick) && isSticky) {
+                    slider.classList.remove('sticky');
+                    slider.parentElement.style.paddingTop = '0';
+                    isSticky = false;
+                }
 
-                    sections.forEach(section => {
-                        if (!section) return;
-                        const rect = section.getBoundingClientRect();
+                setActiveLink();
+            };
 
-                        const distance = Math.abs(rect.top - offset);
-
-                        if (rect.top <= offset && rect.bottom >= 0) {
-                            if (distance < smallestDistance) {
-                                smallestDistance = distance;
-                                closestSection = section;
-                            }
-                        }
+            const onScroll = () => {
+                lastScrollY = window.scrollY;
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        handleScroll();
+                        ticking = false;
                     });
-
-                    if (closestSection) {
-                        links.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${closestSection.id}`) {
-                                link.classList.add('active');
-                                scrollToActiveLink(link); // Плавний скрол до пункту (якщо треба)
-                            }
-                        });
-                    }
-                };
-
-                window.addEventListener('scroll', () => {
-                    handleScroll();
-                    if (isSticky) setActiveLink();
-                });
-                handleScroll();
+                    ticking = true;
+                }
             };
 
             links.forEach(link => {
@@ -712,31 +726,20 @@
                         const targetPosition = targetSection.offsetTop - headerHeight;
                         window.scrollTo({
                             top: targetPosition,
-                            behavior: 'smooth'
+                            behavior: 'smooth',
                         });
 
-                        if (!isDesktop) {
-                            links.forEach(a => a.classList.remove('active'));
-                            link.classList.add('active');
-                            scrollToActiveLink(link);
-                        }
+                        links.forEach(a => a.classList.remove('active'));
+                        link.classList.add('active');
+                        scrollToActiveLink(link);
                     }
                 });
             });
 
-            if (isDesktop) {
-                setupDesktopSticky();
-            } else {
-                setupMobileSlider();
-            }
-
-            window.addEventListener('resize', () => {
-                sliderOriginalOffset = slider.offsetTop;
-                const newIsDesktop = window.matchMedia('(min-width: 768px)').matches;
-                if (newIsDesktop !== isDesktop) {
-                    location.reload();
-                }
-            });
+            sliderRow.style.overflowX = 'auto';
+            sliderRow.style.justifyContent = 'flex-start';
+            window.addEventListener('scroll', onScroll);
+            handleScroll();
         });
     </script>
 

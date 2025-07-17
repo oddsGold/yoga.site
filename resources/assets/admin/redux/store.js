@@ -6,11 +6,14 @@ import faqReducer from './faq/slice.js';
 import formReducer from './form/slice.js';
 import socialLinksReducer from './socialLinks/slice.js';
 import programReducer from './program/slice.js';
+import mainReducer from './main/slice.js';
 import worthReducer from './worth/slice.js';
 import getReducer from './get/slice.js';
 import downloadReducer from './download/slice.js';
 import authorReducer from './author/slice.js';
 import learningReducer from './learning/slice.js';
+import bonusReducer from './bonus/slice.js';
+import dashboardReducer from './dashboard/slice.js';
 import {
     persistStore,
     persistReducer,
@@ -40,11 +43,14 @@ export const store = configureStore({
         form: formReducer,
         socialLinks: socialLinksReducer,
         program: programReducer,
+        main: mainReducer,
         worth: worthReducer,
         get: getReducer,
         download: downloadReducer,
         author: authorReducer,
         learning: learningReducer,
+        dashboard: dashboardReducer,
+        bonus: bonusReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -18,7 +18,7 @@
 {{--    <link rel="preload" href="{{ mix('css/site/fontawesome.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">--}}
 {{--    <noscript><link rel="stylesheet" href="{{ mix('css/site/fontawesome.css') }}"></noscript>--}}
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ Vite::image('favicons/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ Vite::image('favicons/apple-touch-icon.png') }}">
     <link rel="apple-touch-icon" sizes="144x144" href="{{ Vite::image('favicons/apple-icon-144x144.png') }}">
     <link rel="apple-touch-icon" sizes="114x114" href="{{ Vite::image('favicons/apple-icon-114x114.png') }}">

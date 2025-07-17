@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'wayforpay' => [
+        'merchant_account' => env('WAYFORPAY_MERCHANT_ACCOUNT'),
+        'secret_key' => env('WAYFORPAY_SECRET_KEY'),
+        'service_url' => env('WAYFORPAY_SERVICE_URL', 'https://secure.wayforpay.com/pay'),
+    ],
+
 ];

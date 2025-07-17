@@ -44,6 +44,8 @@ Route::middleware(['auth.ips'])->group(function(){
 
     Route::middleware(['auth:jwt/base'])->group(function(){
 
+        Route::get('/news', [App\Http\Controllers\Admin\NewsApiController::class, 'getNews']);
+
         Route::get('form/presentation', [App\Http\Controllers\Admin\FormPresentationController::class, 'index']);
         Route::delete('form/presentation/{id}', [App\Http\Controllers\Admin\FormPresentationController::class, 'destroy']);
 
@@ -51,11 +53,23 @@ Route::middleware(['auth.ips'])->group(function(){
         Route::get('social/{id}', [App\Http\Controllers\Admin\SocialLinksController::class, 'edit']);
         Route::post('social/{id}', [App\Http\Controllers\Admin\SocialLinksController::class, 'update']);
 
+        Route::get('main', [App\Http\Controllers\Admin\MainController::class, 'index']);
+        Route::get('main/{id}', [App\Http\Controllers\Admin\MainController::class, 'edit']);
+        Route::post('main/{id}', [App\Http\Controllers\Admin\MainController::class, 'update']);
+        Route::delete('main/{id}', [App\Http\Controllers\Admin\MainController::class, 'destroy']);
+        Route::post('main', [App\Http\Controllers\Admin\MainController::class, 'store']);
+
         Route::get('program', [App\Http\Controllers\Admin\ProgramController::class, 'index']);
         Route::get('program/{id}', [App\Http\Controllers\Admin\ProgramController::class, 'edit']);
         Route::post('program/{id}', [App\Http\Controllers\Admin\ProgramController::class, 'update']);
         Route::delete('program/{id}', [App\Http\Controllers\Admin\ProgramController::class, 'destroy']);
         Route::post('program', [App\Http\Controllers\Admin\ProgramController::class, 'store']);
+
+        Route::get('bonus', [App\Http\Controllers\Admin\BonusController::class, 'index']);
+        Route::get('bonus/{id}', [App\Http\Controllers\Admin\BonusController::class, 'edit']);
+        Route::post('bonus/{id}', [App\Http\Controllers\Admin\BonusController::class, 'update']);
+        Route::delete('bonus/{id}', [App\Http\Controllers\Admin\BonusController::class, 'destroy']);
+        Route::post('bonus', [App\Http\Controllers\Admin\BonusController::class, 'store']);
 
         Route::get('worth', [App\Http\Controllers\Admin\WorthController::class, 'index']);
         Route::get('worth/{id}', [App\Http\Controllers\Admin\WorthController::class, 'edit']);

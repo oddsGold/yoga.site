@@ -31,6 +31,12 @@ import CreateGetPage from '../pages/GetPages/CreateGetPage.jsx';
 import LearningPage from '../pages/LearningPages/LearningPage.jsx';
 import CreateLearningPage from '../pages/LearningPages/CreateLearningPage.jsx';
 import EditLearningPage from '../pages/LearningPages/EditLearningPage.jsx';
+import MainPage from '../pages/MainPages/MainPage.jsx';
+import CreateMainPage from '../pages/MainPages/CreateMainPage.jsx';
+import EditMainPage from '../pages/MainPages/EditMainPage.jsx';
+import BonusPage from '../pages/BonusPages/BonusPage.jsx';
+import CreateBonusPage from '../pages/BonusPages/CreateBonusPage.jsx';
+import EditBonusPage from '../pages/BonusPages/EditBonusPage.jsx';
 
 const PrivateRoutes = () => {
     return (
@@ -69,6 +75,14 @@ const PrivateRoutes = () => {
             <Route path="/admin/program" exact element={<ProgramPage />} />
             <Route path="/admin/program/:id/edit" element={<EditProgramPage />} />
             <Route path="/admin/program/create" element={<CreateProgramPage />} />
+
+            <Route path="/admin/bonus" exact element={<BonusPage />} />
+            <Route path="/admin/bonus/:id/edit" element={<EditBonusPage />} />
+            <Route path="/admin/bonus/create" element={<CreateBonusPage />} />
+
+            <Route path="/admin/main" exact element={<MainPage />} />
+            <Route path="/admin/main/:id/edit" element={<EditMainPage />} />
+            <Route path="/admin/main/create" element={<CreateMainPage />} />
 
             <Route path="/admin/worth" exact element={<WorthPage />} />
             <Route path="/admin/worth/:id/edit" element={<EditWorthPage />} />

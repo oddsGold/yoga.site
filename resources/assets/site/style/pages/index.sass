@@ -19,6 +19,9 @@ main
 
             &.main
                 min-height: 678px
+                picture
+                    img
+                        object-position: 0 94%
 
                 .main-name
                     padding: 37px 0 43px 0
@@ -142,6 +145,10 @@ main
                 padding: 20px 0 33px 0
 
                 button
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    margin: 0 auto
                     width: 335px
                     font-size: 1.25rem
                     line-height: 1.125rem
@@ -149,6 +156,8 @@ main
 
 
             &.slider
+                transition: transform 0.2s ease
+                will-change: transform
                 .slider-row
                     display: flex
                     overflow-x: auto
@@ -312,9 +321,10 @@ main
                         opacity: .2
 
                     p
-                        position: relative
+                        position: absolute
                         z-index: 100
-                        right: -20px
+                        right: -20px!important
+                        //transform: translateX(20px)
                         bottom: 16px
                         width: 335px
                         background-color: #DAD5BF
@@ -407,6 +417,10 @@ main
                                     transform: translate(50%, -50%) rotate(45deg)
 
                     button
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        margin: 0 auto
                         width: 295px
                         margin-top: 16px
 
@@ -797,6 +811,10 @@ main
                     p
                         line-height: 1.5rem
                         padding-bottom: 16px
+                    ul, ol
+                        padding-bottom: 16px
+                        &:last-child
+                            padding-bottom: 0
                 .ready-btn
                     button
                         width: 100%
@@ -863,8 +881,8 @@ main
 
                             .btn-close
                                 position: absolute
-                                top: 24px
-                                right: 24px
+                                top: 10px
+                                right: 10px
                                 z-index: 10
 
                                 &:focus

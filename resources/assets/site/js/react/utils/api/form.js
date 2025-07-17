@@ -1,4 +1,4 @@
-import {instance} from "./instance";
+import { instance, instanceSite } from './instance';
 
 const alias = '/forms';
 
@@ -14,6 +14,10 @@ export default {
 
     createFormPresentation: (data) => {
         return instance.post(`${alias}/presentation`, data);
+    },
+
+    createWayForPayPayment: (data) => {
+        return instanceSite.post(`payments/create`, data);
     },
 
     getFaq: () => {

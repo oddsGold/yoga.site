@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Form\Presentation::class => \App\Policies\FormPresentationPolicy::class,
         \App\Models\SocialLinks::class => \App\Policies\SocialLinksPolicy::class,
         \App\Models\Program::class => \App\Policies\ProgramPolicy::class,
+        \App\Models\Bonus::class => \App\Policies\BonusPolicy::class,
+        \App\Models\Main::class => \App\Policies\MainPolicy::class,
         \App\Models\Worth::class => \App\Policies\WorthPolicy::class,
         \App\Models\Learning::class => \App\Policies\LearningPolicy::class,
         \App\Models\Get::class => \App\Policies\GetPolicy::class,

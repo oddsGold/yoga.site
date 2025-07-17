@@ -4,7 +4,6 @@
 namespace App\Models;
 
 
-use App\Extensions\Published;
 use App\Extensions\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,8 +13,8 @@ class Learning extends Model
 {
     use HasFactory,
         Searchable,
-        SoftDeletes,
-        Published;
+        SoftDeletes;
+
 
     protected $fillable = [
         'title',

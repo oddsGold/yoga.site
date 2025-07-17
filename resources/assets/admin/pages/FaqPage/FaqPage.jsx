@@ -26,7 +26,7 @@ export default function FaqPage() {
             gridHeaderRow={gridHeaderRow}
             useQuery={useFaqQuery}
             useDeleteMutation={useDeleteFaqMutation}
-            dnd={true}
+            dnd={false}
           />
         </ComponentCard>
       </div>

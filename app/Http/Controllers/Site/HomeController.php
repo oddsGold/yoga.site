@@ -8,6 +8,8 @@ use App\Services\NewsService;
 use App\Services\AuthorService;
 use App\Services\SocialLinksService;
 use App\Services\ProgramService;
+use App\Services\BonusService;
+use App\Services\MainService;
 use App\Services\WorthService;
 use App\Services\LearningService;
 use App\Services\GetService;
@@ -28,6 +30,8 @@ class HomeController extends Controller
     protected WorthService $worthService;
     protected GetService $getService;
     protected LearningService $learningService;
+    protected MainService $mainService;
+    protected BonusService $bonusService;
 
     public function __construct(
         FaqService         $faq,
@@ -36,7 +40,9 @@ class HomeController extends Controller
         ProgramService     $programService,
         WorthService       $worthService,
         GetService         $getService,
-        LearningService    $learningService
+        LearningService    $learningService,
+        MainService        $mainService,
+        BonusService       $bonusService
     )
     {
         $this->faqService = $faq;
@@ -46,6 +52,8 @@ class HomeController extends Controller
         $this->worthService = $worthService;
         $this->getService = $getService;
         $this->learningService = $learningService;
+        $this->mainService = $mainService;
+        $this->bonusService = $bonusService;
     }
 
 
@@ -60,6 +68,8 @@ class HomeController extends Controller
             'worth' => $this->worthService->getAll(),
             'benefits' => $this->getService->getAll(),
             'learning' => $this->learningService->getAll(),
+            'mainSection' => $this->mainService->getAllWithoutPublishedLast(),
+            'bonus' => $this->bonusService->getAllWithoutPublishedLast(),
         ]);
     }
 }

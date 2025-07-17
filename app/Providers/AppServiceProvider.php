@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Contracts\Http::class => \App\Services\HttpService::class,
         \App\Contracts\QrCode::class => \App\Services\QrCodeGenerator::class,
         \App\Contracts\PDF::class => \App\Services\PDFService::class,
+        \App\Contracts\JWT::class => \App\Services\Admin\Auth\JWTService::class,
 
         \App\Services\FileService::class,
         \App\Services\ImageService::class,

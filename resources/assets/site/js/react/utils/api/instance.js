@@ -5,3 +5,9 @@ export const instance = axios.create({
     withCredentials: true,
     headers: {'Accept': 'application/json'}
 })
+
+export const instanceSite = axios.create({
+    baseURL : '/',
+    withCredentials: true,
+    headers: {'Accept': 'application/json'}
+})

@@ -81,6 +81,21 @@ if (!function_exists('find_phone_numbers_from_text')) {
     }
 }
 
+if (!function_exists('read_file_by_iterable_lines')){
+    function read_file_by_iterable_lines($fileAndPath)
+    {
+        if(!filesize($fileAndPath)){
+            return [];
+        }
+        $handle = fopen($fileAndPath, "r");
+        while(!feof($handle)) {
+            yield fgets($handle);
+        }
+        fclose($handle);
+
+    }
+}
+
 if (!function_exists('add_br_to_title')) {
     function add_br_to_title($string)
     {
