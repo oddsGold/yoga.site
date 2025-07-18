@@ -16,9 +16,9 @@ export default {
         return instance.post(`${alias}/presentation`, data);
     },
 
-    createWayForPayPayment: (data) => {
-        return instanceSite.post(`payments/create`, data);
-    },
+    generateSignature: (data) => instanceSite.post('generate-signature', data),
+
+    updateStatus: (data) => instanceSite.post('order/status', data),
 
     getFaq: () => {
         return instance.get(`/faq`);

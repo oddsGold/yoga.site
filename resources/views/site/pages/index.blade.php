@@ -628,10 +628,14 @@
         </div>
     </div>
 
+
 @endsection
 
 
 @section('script-body')
+    <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const slider = document.querySelector('.slider');

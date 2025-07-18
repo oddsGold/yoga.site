@@ -90,8 +90,7 @@ const Presentation = () => {
                                 .required("Це поле має бути заповнене"),
                             nickname: Yup.string()
                                 .min(2, "Нік не може бути менше 2-х символів")
-                                .max(200, "Нік не може бути більше 200 символів")
-                                .required("Це поле має бути заповнене"),
+                                .max(200, "Нік не може бути більше 200 символів"),
                             phone: Yup.string()
                                 .min(7, "Телефон не може бути менше 7 символів")
                                 .max(18, "Телефон не може бути більше 18 символів")
@@ -108,7 +107,7 @@ const Presentation = () => {
                             actions.setSubmitting(false);
                         }}
                     >
-                        {({ isValid, dirty }) => (
+                        {({ isValid, dirty, values, validateForm, setFieldTouched  }) => (
                             <Form>
                                 <TextInput
                                     label="Ім’я"
@@ -150,10 +149,18 @@ const Presentation = () => {
                                         </button>
                                     </div>
                                 </div>
+
+                                <PaymentButton
+                                    isValid={isValid}
+                                    dirty={dirty}
+                                    isLoading={loading}
+                                    formData={values}
+                                    validateForm={validateForm}
+                                    setFieldTouched={setFieldTouched}
+                                />
                             </Form>
                         )}
                     </Formik>
-                    {/*<PaymentButton />*/}
                 </>
             ) : (
                 <div className="presentation-form">

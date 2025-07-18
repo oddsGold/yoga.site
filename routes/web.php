@@ -29,7 +29,6 @@ Route::middleware(['auth.ips'])->group(function(){
 
 Route::get('/', [App\Http\Controllers\Site\HomeController::class, 'index'])->name('home');
 
-Route::post('/payments/create', [App\Http\Controllers\Site\PaymentController::class, 'createPayment']);
-Route::get('/payment', [App\Http\Controllers\Site\PaymentController::class, 'showPaymentForm'])->name('payment.form');
-Route::post('/payment/process', [App\Http\Controllers\Site\PaymentController::class, 'processPayment'])->name('payment.process');
-Route::post('/payment/callback', [App\Http\Controllers\Site\PaymentController::class, 'handleCallback'])->name('payment.callback');
+Route::post('/generate-signature', [App\Http\Controllers\Site\PaymentController::class, 'generateSignature']);
+Route::post('/order/status', [App\Http\Controllers\Site\OrderController::class, 'updateStatus']);
+

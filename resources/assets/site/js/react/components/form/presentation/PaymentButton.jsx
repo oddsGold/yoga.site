@@ -1,58 +1,101 @@
 import React, { useState } from 'react';
-import API from "../../../utils/api";
+import API from '../../../utils/api';
 
-const PaymentButton = () => {
+const PaymentButton = ({ isValid, dirty, isLoading, formData, validateForm, setFieldTouched }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Статичні дані з БД (можна отримувати через API)
-    const paymentData = {
-        productName: "Доступ до презентації",
-        amount: 500, // Сума в гривнях
-        currency: "UAH",
-        productCount: 1,
-        product_id: 1
-    };
-
     const handlePayment = async () => {
-        setLoading(true);
-        setError(null);
-
         try {
-            // 1. Створюємо платіж на бекенді
-            const response = await API.createWayForPayPayment(paymentData);
-            console.log(response.data);
+            Object.keys(formData).forEach(field => {
+                setFieldTouched(field, true, false);
+            });
 
-            // 2. Перенаправляємо на сторінку оплати WayForPay
-            if (response.data.paymentUrl) {
-                window.location.href = response.data.paymentUrl;
-            } else {
-                throw new Error('Не отримано URL для оплати');
+            const errors = await validateForm();
+
+            if (Object.keys(errors).length > 0) {
+                return;
             }
-        } catch (err) {
-            setError(err.message || 'Помилка при створенні платежу');
-            console.error(err);
+
+            setLoading(true);
+            setError(null);
+
+            const { data } = await API.generateSignature(formData);
+
+            const wayforpay = new window.Wayforpay();
+
+            wayforpay.run({
+                    merchantAccount: data.merchantAccount,
+                    merchantDomainName: data.merchantDomainName,
+                    merchantTransactionSecureType: 'AUTO',
+                    merchantSignature: data.signature,
+                    orderReference: data.orderReference, //номер замовлення з БД
+                    orderDate: data.orderDate,
+                    amount: data.amount,
+                    currency: data.currency,
+                    productName: [data.productNames],
+                    productPrice: [data.productPrices],
+                    productCount: [data.productCounts],
+                    straightWidget: true,
+                    clientEmail: 'user@example.com',
+                    language: 'UA',
+                },
+                // 1. Успішна оплата (Approved)
+                async (response) => {
+                    try {
+                        await API.updateStatus({
+                            ...response,
+                            transactionStatus: response.transactionStatus || 'Approved',
+                            wfpReasonCode: response.reasonCode,
+                            wfpReason: response.reason
+                        });
+                        console.log('Успішний платіж:', response);
+                    } catch (error) {
+                        console.error('Помилка оновлення статусу:', error);
+                    }
+                },
+                // 2. Відмова (Declined)
+                async (response) => {
+                    await API.updateStatus({
+                        ...response,
+                        transactionStatus: response.transactionStatus || 'Declined',
+                        wfpReasonCode: response.reasonCode,
+                        wfpReason: response.reason
+                    });
+                    setError(response.reason || 'Платіж відхилено');
+                },
+                // 3. Обробка (InProcessing/Pending)
+                async (response) => {
+                    try {
+                        await API.updateStatus({
+                            ...response,
+                            transactionStatus: response.transactionStatus || 'InProcessing',
+                            wfpReasonCode: response.reasonCode,
+                            wfpReason: response.reason
+                        });
+                        console.log('Платіж в обробці:', response);
+                    } catch (error) {
+                        console.error('Помилка оновлення статусу:', error);
+                    }
+                });
+
+        } catch (error) {
+            setError('Сталася помилка при спробі оплати');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="payment-container">
-            <div className="payment-summary">
-                <h3>{paymentData.productName}</h3>
-                <p>Сума: {paymentData.amount} {paymentData.currency}</p>
-            </div>
-
-            <button
+        <div className="payment-container text-center">
+            <div
                 onClick={handlePayment}
-                disabled={loading}
-                className={`btn btn-primary ${loading ? 'loading' : ''}`}
+                className={`btn btn-base btn-default orange ${isValid && dirty ? 'ready' : 'disabled'}`}
+                disabled={!(isValid && dirty) || isLoading}
             >
-                {loading ? 'Обробка...' : 'Оплатити'}
-            </button>
-
-            {error && <div className="alert alert-danger mt-3">{error}</div>}
+                Оплатити
+            </div>
+            {error && <div className="payment-error">{error}</div>}
         </div>
     );
 };
